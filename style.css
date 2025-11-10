@@ -9,6 +9,21 @@ body {
   padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* ————————————————————— */
+/* GLOBAL OVERFLOW & BOX-SIZING FIXES */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;      /* hide horizontal overflow on mobile */
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 span{
   color: #007bff;
 }
@@ -325,27 +340,32 @@ span{
   padding: 6rem 1rem;
   position: relative;
   background-color: rgb(208, 205, 205);
+  width: 100%;
+  overflow: hidden; /* prevents animation overflow */
 }
+
 .hero-consulting .hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
-  margin-left: 30px;
-  width: 600px;
+  max-width: 600px;   /* ✅ replaces fixed width */
+  width: 100%;
 }
+
 .hero-consulting h1 {
   font-size: 2.75rem;
   line-height: 1.2;
   margin-bottom: 1rem;
-  color:black;
+  color: black;
 }
+
 .hero-consulting p {
   font-size: 1.15rem;
   margin-bottom: 2.5rem;
-  color:#555;
+  color: #555;
 }
+
 .hero-consulting .hero-cta .btn {
   display: inline-block;
   padding: 0.75rem 1.75rem;
@@ -355,6 +375,8 @@ span{
   transition: background 0.3s, color 0.3s;
   margin: 0 0.5rem;
 }
+
+/* Buttons */
 .btn-primary {
   background: #007bff;
   color: #ffffff;
@@ -362,78 +384,63 @@ span{
   font-weight: bold;
 }
 .btn-primary:hover {
-  background:red;
+  background: red;
 }
 .btn-secondary {
   background: transparent;
-  color:black;
+  color: black;
   border: 2px solid black;
   font-weight: bold;
 }
 .btn-secondary:hover {
   border: 2px solid red;
-  color:red;
+  color: red;
 }
 
-/*=== img animation ===*/
+/*=== Image animation ===*/
 .animated-image {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
   padding: 2rem 0;
-  margin-right:100px;
+  margin-right: 50px; /* reduced so no overflow */
+  max-width: 100%;    /* ✅ important */
 }
 
 .animated-image img {
   width: 300px;
   height: 300px;
-  border-radius: 8px;       /* optional */
+  border-radius: 8px;
   object-fit: cover;
-  transform-origin: center center; /* rotate around centre */
-  
-  /* apply rotation animation */
+  transform-origin: center center;
   animation: rotateOne 8s linear infinite;
 }
 
-/* Staggered delays so each image starts at different time */
-.animated-image img:nth-child(1) {
-  animation-delay: 0s;
-}
-.animated-image img:nth-child(2) {
-  animation-delay: 2s;
-}
-.animated-image img:nth-child(3) {
-  animation-delay: 4s;
-}
-.animated-image img:nth-child(4) {
-  animation-delay: 6s;
-}
-/* animation key frame */
+.animated-image img:nth-child(1) { animation-delay: 0s; }
+.animated-image img:nth-child(2) { animation-delay: 2s; }
+.animated-image img:nth-child(3) { animation-delay: 4s; }
+.animated-image img:nth-child(4) { animation-delay: 6s; }
+
+/* Keyframes */
 @keyframes rotateOne {
-  0% {
-    transform: rotate(0deg);
-    opacity: 1;
-  }
-  25% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(360deg);
-    opacity: 0;  /* maybe fade out at end for smoother transition */
-  }
+  0% { transform: rotate(0deg); opacity: 1; }
+  25% { opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0; }
 }
 
+/* ✅ Mobile responsive version */
 @media (max-width: 450px) {
   .hero-consulting {
     flex-direction: column;
     padding: 3rem 1rem;
     text-align: center;
+    overflow: hidden;
   }
 
   .hero-consulting .hero-inner {
     width: 100%;
-    margin-left: 0;
+    margin: 0 auto;
     padding: 0 10px;
   }
 
@@ -454,10 +461,10 @@ span{
   }
 
   .animated-image {
-    margin-top: 1.5rem;
     margin-right: 0;
     justify-content: center;
     gap: 1rem;
+    max-width: 100%;
   }
 
   .animated-image img {
